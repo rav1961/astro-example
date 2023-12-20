@@ -1,16 +1,16 @@
 ---
-import art1 from '/img2.jpg?url';
-import art2 from '/img2.jpg?url';
-import art3 from '/img2.jpg?url';
-import art4 from '/img2.jpg?url';
+import { Image } from 'astro:assets';
+import art1 from '../../public/img2.jpg';
 ---
 
 <div class="mx-12">
   <h1 class="my-24 text-center text-xl">Latest Art Pieces</h1>
   <div class="grid grid-cols-1 gap-24 xl:mx-48 xl:grid-cols-2">
     <div class="relative group">
-      <img
+      <Image
         src={art1}
+        width={1200}
+        densities={[1.5, 2]}
         class="w-full z-10 rounded-lg transition-all group-hover:-translate-x-3"
         alt="picture"
       />
@@ -20,8 +20,10 @@ import art4 from '/img2.jpg?url';
       </div>
     </div>
     <div class="relative group">
-      <img
-        src={art2}
+      <Image
+        src={art1}
+        width={1200}
+        densities={[1.5, 2]}
         class="w-full z-10 rounded-lg transition-all group-hover:-translate-x-3"
         alt="picture"
       />
@@ -31,8 +33,10 @@ import art4 from '/img2.jpg?url';
       </div>
     </div>
     <div class="relative group">
-      <img
-        src={art3}
+      <Image
+        src={art1}
+        width={1200}
+        densities={[1.5, 2]}
         class="w-full z-10 rounded-lg transition-all group-hover:-translate-x-3"
         alt="picture"
       />
@@ -42,8 +46,10 @@ import art4 from '/img2.jpg?url';
       </div>
     </div>
     <div class="relative group">
-      <img
-        src={art4}
+      <Image
+        src={art1}
+        width={1200}
+        densities={[1.5, 2]}
         class="w-full z-10 rounded-lg transition-all group-hover:-translate-x-3"
         alt="picture"
       />
