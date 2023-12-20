@@ -1,0 +1,143 @@
+---
+import portrait from '/img3.jpg?url';
+import paint from '/pic1.png?url';
+---
+
+<div
+  class="relative mx-auto px-12 flex flex-col items-center justify-center xl:flex-row xl:gap-36"
+>
+  <div class="w-full xl:w-1/2">
+    <h1 class="text-xl px-6">
+      Lorem ipsum set dolor <span class="font-bold">met</span>.
+    </h1>
+    <div class="relative">
+      <svg class="absolute h-full w-full overflow-visible -z-[1]" fill="none">
+        <defs>
+          <linearGradient
+            id="gradinet"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y="100%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#DC3A2B"></stop>
+            <stop offset="100%" stop-color="#E18510"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M538 253.5V167H2L2 2"
+          stroke="url(#gradinet)"
+          stroke-width="3"
+          stroke-linecap="round"
+          id="border-path"></path>
+      </svg>
+      <p id="anim-p" class="p-6 text-lg">
+        Lorem ipsum dolor sit amet,
+        <span class="font-bold text-primary">consectetur</span> adipiscing elit.
+        Phasellus vitae pretium est, ut scelerisque elit. Sed quis laoreet odio,
+        vitae maximus nulla. Quisque ante nulla, tincidunt eu turpis at, porta
+        lacinia elit.
+        <br />
+        <br />
+         Fusce sed purus vel erat condimentum varius. Donec sit amet purus eget
+        neque posuere vestibulum. In bibendum malesuada nulla vel commodo.
+        Aenean at felis pellentesque, ullamcorper leo vitae, posuere nisl. Donec
+        a arcu id quam viverra condimentum a imperdiet est. Vivamus vulputate
+        nunc sapien, id placerat risus molestie vitae. Aliquam in consequat
+        tellus. Curabitur gravida felis lobortis lobortis fringilla.
+        Pellentesque aliquet massa nec accumsan maximus. Pellentesque viverra id
+        leo placerat tempor.
+        <br />
+        <br />
+         Aenean lobortis odio in est elementum dapibus. Phasellus justo sem,
+        dictum vitae posuere nec, rutrum nec eros. Cras mattis mi vel maximus
+        posuere.
+      </p>
+    </div>
+    <div class="flex justify-center pt-12 text-center mb-12 xl:gap-16">
+      <div class="w-32">
+        <h2>Art posts</h2>
+        <span id="art-counter" class="text-xl font-bold">0</span>
+      </div>
+      <div class="w-32">
+        <h2>Youtube</h2>
+        <p id="youtube-counter" class="text-xl font-bold">0</p>
+      </div>
+      <div class="w-32">
+        <h2>Reviews</h2>
+        <p id="reviews-counter" class="text-xl font-bold">0</p>
+      </div>
+    </div>
+  </div>
+  <div class="relative xl:w-1/2">
+    <img src={portrait} alt="Author portrait" class="h-full rounded-lg" />
+    <div class="absolute bottom-0 right-0 translate-y-1/2">
+      <img src={paint} alt="paint" class="w-1/4 mr-0 ml-auto" />
+    </div>
+  </div>
+</div>
+
+<div class="mt-16 h-4 w-full bg-black"></div>
+
+<style>
+  #border-path {
+    animation: draw 2s ease-out forwards;
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
+
+<script>
+  function updatePath() {
+    const textMain = document.querySelector('#anim-p') as HTMLElement;
+    const path = document.querySelector('#border-path') as SVGPathElement;
+
+    if (textMain && path) {
+      path.setAttribute(
+        'd',
+        `M0,0 V${textMain.offsetHeight} H${textMain.offsetWidth} v${
+          textMain.offsetHeight / 2
+        }`
+      );
+    }
+
+    const pathLength = path.getTotalLength();
+
+    path.style.strokeDasharray = pathLength.toString();
+    path.style.strokeDashoffset = pathLength.toString();
+  }
+
+  function incrementCounter(
+    selector: string,
+    current: number,
+    target: number,
+    duration: number,
+    letter: string = ''
+  ) {
+    let counterElement = document.getElementById(selector);
+    let stepTime = Math.abs(Math.floor(duration / target));
+
+    if (current < target && counterElement) {
+      let counter = parseFloat(counterElement.innerText);
+
+      counter++;
+      counterElement.innerText = counter.toString() + letter;
+
+      setTimeout(
+        () => incrementCounter(selector, counter, target, duration, letter),
+        stepTime
+      );
+    }
+  }
+
+  incrementCounter('art-counter', 0, 85, 500);
+  incrementCounter('youtube-counter', 0, 320, 250, 'k');
+  incrementCounter('reviews-counter', 0, 285, 250);
+
+  window.addEventListener('DOMContentLoaded', updatePath);
+  window.addEventListener('resize', updatePath);
+</script>
